@@ -21,28 +21,27 @@ namespace Atores
         {
         }
 
-        /*protected override Task OnActivateAsync()
+        protected override Task OnActivateAsync()
         {
             ActorEventSource.Current.ActorMessage(this, "Actor activated.");
             return this.StateManager.TryAddStateAsync("count", 0);
-        }*/
+        }
 
         public Task MeAtivarAsync(string cliente, string ambiente, string dispositivo, int versao)
         {
+            //Cria Tabela em Microsoft Azure através de uma ConnectionString
             CloudTable cloudTable;
             CloudStorageAccount cloudStorageAccount = CloudStorageAccount.Parse(storageConnectionString);
             var cloudTableClient = cloudStorageAccount.CreateCloudTableClient();
             cloudTable = cloudTableClient.GetTableReference("Equipamentos");
             cloudTable.CreateIfNotExistsAsync();
-
-            var Dispositivo = new EntidadeDispositivo(dispositivo, cliente)
-            {
-                Ambiente = ambiente,
-                Versao = versao.ToString()
-            };
+            //Modelo de dados a adicionar na tabela Equipamentos onde 'dispositivo' é a partitionKey, 'cliente' é a rowKey
+            var Dispositivo = new EntidadeDispositivo(dispositivo, cliente) { Ambiente = ambiente, Versao = versao.ToString() };
+            //Realiza a Inserção da Tabela
             TableOperation insertOperation = TableOperation.InsertOrReplace(Dispositivo);
             cloudTable.ExecuteAsync(insertOperation);
 
+            //Salva as Informações do Dispositivo
             Estado._infoDispositivo = new InfoDispositivo()
             {
                 Cliente = cliente,
@@ -52,8 +51,14 @@ namespace Atores
             };
             Estado._grupoId = cliente;
 
+            //Cria um proxy de comunicação com o Ator(Residencia) que salvará os dados de todos os dispositivos
             var grupoDispositivo = ActorProxy.Create<IResidencia>(new ActorId(Estado._grupoId));
             return grupoDispositivo.RegistrarDispositivo(Estado._infoDispositivo);
+        }
+
+        public void PresencaPessoa()
+        {
+
         }
     }
 }

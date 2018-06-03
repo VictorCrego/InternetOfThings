@@ -4,17 +4,25 @@
     <Parameter Name="AmbienteActorService_PartitionCount" DefaultValue="10" />
     <Parameter Name="AmbienteActorService_MinReplicaSetSize" DefaultValue="3" />
     <Parameter Name="AmbienteActorService_TargetReplicaSetSize" DefaultValue="3" />
+    <Parameter Name="ResidenciaActorService_PartitionCount" DefaultValue="10" />
+    <Parameter Name="ResidenciaActorService_MinReplicaSetSize" DefaultValue="3" />
+    <Parameter Name="ResidenciaActorService_TargetReplicaSetSize" DefaultValue="3" />
   </Parameters>
   <!-- Importe o ServiceManifest do ServicePackage. O ServiceManifestName e a ServiceManifestVersion 
        devem corresponder aos atributos Name e Version do elemento ServiceManifest definido no arquivo 
        ServiceManifest.xml. -->
   <ServiceManifestImport>
-    <ServiceManifestRef ServiceManifestName="AmbientePkg" ServiceManifestVersion="1.0.0" />
+    <ServiceManifestRef ServiceManifestName="AtoresPkg" ServiceManifestVersion="1.0.0" />
   </ServiceManifestImport>
   <DefaultServices>
-    <Service Name="AmbienteActorService" GeneratedIdRef="8d9b6691-145b-4fc2-8973-515af277226d|Persisted">
+    <Service Name="AmbienteActorService" GeneratedIdRef="54e962b2-78ce-483c-a30a-c0679ab52d8f|Persisted">
       <StatefulService ServiceTypeName="AmbienteActorServiceType" TargetReplicaSetSize="[AmbienteActorService_TargetReplicaSetSize]" MinReplicaSetSize="[AmbienteActorService_MinReplicaSetSize]">
         <UniformInt64Partition PartitionCount="[AmbienteActorService_PartitionCount]" LowKey="-9223372036854775808" HighKey="9223372036854775807" />
+      </StatefulService>
+    </Service>
+    <Service Name="ResidenciaActorService" GeneratedIdRef="5d0fa009-92b1-4d32-bd77-d8f43c3660e3|Persisted">
+      <StatefulService ServiceTypeName="ResidenciaActorServiceType" TargetReplicaSetSize="[ResidenciaActorService_TargetReplicaSetSize]" MinReplicaSetSize="[ResidenciaActorService_MinReplicaSetSize]">
+        <UniformInt64Partition PartitionCount="[ResidenciaActorService_PartitionCount]" LowKey="-9223372036854775808" HighKey="9223372036854775807" />
       </StatefulService>
     </Service>
     <!-- A seção abaixo cria instâncias dos tipos de serviço quando uma instância deste 
