@@ -1,13 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
+using Atores.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.ServiceFabric.Actors;
+using Microsoft.ServiceFabric.Actors.Client;
 
 namespace API.Controllers
 {
-    [Produces("application/json")]
     [Route("api/AtivarMe")]
     public class AtivarMeController : Controller
     {
@@ -27,8 +30,18 @@ namespace API.Controllers
 
         // POST api/AtivarMe
         [HttpPost]
-        public void Post([FromBody]string value)
+        public IActionResult Post([FromBody]PostAtivar post)
         {
+            try
+            {
+                var actor = ActorProxy.Create<IAmbiente>(new ActorId(post.Dispositivo), new Uri("fabric:/InternetOfThings/AmbienteActorService"));
+                actor.MeAtivarAsync(post.Cliente, post.Ambiente, post.Dispositivo, post.Versao);
+                return Ok();
+            }
+            catch
+            {
+                return NotFound();
+            }
         }
 
         // PUT api/AtivarMe/5

@@ -56,9 +56,21 @@ namespace Atores
             return grupoDispositivo.RegistrarDispositivo(Estado._infoDispositivo);
         }
 
-        public void PresencaPessoa()
+        /*public Task PresencaPessoaAsync(bool Presenca, float Temperatura, float Umidade, float Luminosidade)
         {
+            float SetTemp = 0;
+            float SetUmid = 0;
+            float SetLum = 0;
+            if (Presenca)
+            {
+                if (Temperatura > SetTemp)
+                if (Umidade > SetUmid)
+                if (Luminosidade < SetLum)
+            }
+            else
+            {
 
-        }
+            }
+        }*/
     }
 }
