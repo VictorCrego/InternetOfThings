@@ -18,13 +18,15 @@ namespace Atores
 
         public Task RegistrarDispositivo(InfoDispositivo infoDispositivo)
         {
-            Estado._listaDispositivos.Add(infoDispositivo);
+            if (!Estado._Dispositivos.ContainsKey(infoDispositivo.Dispositivo))
+                Estado._Dispositivos.Add(infoDispositivo.Dispositivo, infoDispositivo);
             return Task.FromResult(true);
         }
 
         public Task ApagarRegistroDispositivo(InfoDispositivo infoDispositivo)
         {
-            Estado._listaDispositivos.Remove(infoDispositivo);
+            if (!Estado._Dispositivos.ContainsKey(infoDispositivo.Dispositivo))
+                Estado._Dispositivos.Remove(infoDispositivo.Dispositivo);
             return Task.FromResult(true);
         }
 

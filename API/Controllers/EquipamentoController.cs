@@ -36,7 +36,7 @@ namespace API.Controllers
             try
             { 
                 var actor = ActorProxy.Create<IAmbiente>(new ActorId(dispositivo), new Uri("fabric:/InternetOfThings/AmbienteActorService"));
-                actor.Equipamento(post);
+                actor.Equipamento(dispositivo, post);
                 return Ok();
             }
             catch

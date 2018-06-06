@@ -36,7 +36,7 @@ namespace Atores
         public Task MeAtivarAsync(string cliente, string ambiente, string dispositivo, int versao)
         {
             //Cria Tabela em Microsoft Azure através de uma ConnectionString
-            CloudTable cloudTable;
+            /*CloudTable cloudTable;
             CloudStorageAccount cloudStorageAccount = CloudStorageAccount.Parse(storageConnectionString);
             var cloudTableClient = cloudStorageAccount.CreateCloudTableClient();
             cloudTable = cloudTableClient.GetTableReference("Equipamentos");
@@ -45,7 +45,7 @@ namespace Atores
             var Dispositivo = new EntidadeDispositivo(dispositivo, cliente) { Ambiente = ambiente, Versao = versao.ToString() };
             //Realiza a Inserção da Tabela
             TableOperation insertOperation = TableOperation.InsertOrReplace(Dispositivo);
-            cloudTable.ExecuteAsync(insertOperation);
+            cloudTable.ExecuteAsync(insertOperation);*/
 
             //Salva as Informações do Dispositivo
             Estado._infoDispositivo = new InfoDispositivo()
@@ -62,16 +62,16 @@ namespace Atores
             return grupoDispositivo.RegistrarDispositivo(Estado._infoDispositivo);
         }
 
-        public Task Equipamento(PostEquipamento post)
+        public Task Equipamento(string dispositivo, PostEquipamento post)
         {
             EquipEstado.Numero.Add(post.Numero, post.Valor);
             EquipEstado.Equipamento.Add(post.Equipamento, EquipEstado.Numero);
 
             string JsonEnvio = JsonConvert.SerializeObject(post);
-            string uri = "http://" + Estado._infoDispositivo.Dispositivo + "/api/Equipamento";
+            string endpoint = "http://" + dispositivo + ".ngrok.io/api/Equipamento";
             HttpClient client = new HttpClient();
             var content = new StringContent(JsonEnvio, Encoding.UTF8, "application/json");
-            var result =  client.PostAsync(uri, content);
+            var result =  client.PostAsync(endpoint, content);
             return null;
         }
     }
