@@ -14,6 +14,8 @@ namespace Atores
     internal class Ambiente : Actor, IAmbiente
     {
         EstadoDispositivo Estado = new EstadoDispositivo();
+        EstadoEquipamento EquipEstado = new EstadoEquipamento();
+
         private readonly string storageConnectionString = "";
 
         public Ambiente(ActorService actorService, ActorId actorId)
@@ -58,6 +60,8 @@ namespace Atores
 
         public Task Equipamento(string Equipamento, int Numero, bool Valor)
         {
+            EquipEstado.Numero.Add(Numero, Valor);
+            EquipEstado.Equipamento.Add(Equipamento, EquipEstado.Numero);
 
             return null;
         }
