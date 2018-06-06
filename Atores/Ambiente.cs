@@ -56,21 +56,10 @@ namespace Atores
             return grupoDispositivo.RegistrarDispositivo(Estado._infoDispositivo);
         }
 
-        /*public Task PresencaPessoaAsync(bool Presenca, float Temperatura, float Umidade, float Luminosidade)
+        public Task Equipamento(string Equipamento, int Numero, bool Valor)
         {
-            float SetTemp = 0;
-            float SetUmid = 0;
-            float SetLum = 0;
-            if (Presenca)
-            {
-                if (Temperatura > SetTemp)
-                if (Umidade > SetUmid)
-                if (Luminosidade < SetLum)
-            }
-            else
-            {
 
-            }
-        }*/
+            return null;
+        }
     }
 }

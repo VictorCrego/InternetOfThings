@@ -12,6 +12,7 @@ namespace Atores.Interfaces
     public interface IAmbiente : IActor
     {
         Task MeAtivarAsync(string cliente, string ambiente, string dispositivo, int versao);
+        Task Equipamento(string Equipamento, int Numero, bool Valor);
         //Task PresencaPessoaAsync(float Temperatura, float Umidade, float Luminosidade);
     }
 }
