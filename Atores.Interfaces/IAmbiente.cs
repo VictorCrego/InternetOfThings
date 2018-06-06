@@ -1,18 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
+using Metodos;
 using Microsoft.ServiceFabric.Actors;
-using Microsoft.ServiceFabric.Actors.Remoting.FabricTransport;
-using Microsoft.ServiceFabric.Services.Remoting;
 
 namespace Atores.Interfaces
 {
     public interface IAmbiente : IActor
     {
         Task MeAtivarAsync(string cliente, string ambiente, string dispositivo, int versao);
-        Task Equipamento(string Equipamento, int Numero, bool Valor);
-        //Task PresencaPessoaAsync(float Temperatura, float Umidade, float Luminosidade);
+        Task Equipamento(PostEquipamento post);
     }
 }

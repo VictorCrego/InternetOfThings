@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Atores.Interfaces;
+using Metodos;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.ServiceFabric.Actors;
@@ -35,7 +36,7 @@ namespace API.Controllers
             try
             { 
                 var actor = ActorProxy.Create<IAmbiente>(new ActorId(dispositivo), new Uri("fabric:/InternetOfThings/AmbienteActorService"));
-                actor.Equipamento(post.Equipamento, post.Numero, post.Valor);
+                actor.Equipamento(post);
                 return Ok();
             }
             catch

@@ -7,6 +7,10 @@ using Microsoft.WindowsAzure.Storage;
 using Dominio;
 using Microsoft.ServiceFabric.Actors.Client;
 using Entidades;
+using System.Net.Http;
+using System.Text;
+using Newtonsoft.Json;
+using Metodos;
 
 namespace Atores
 {
@@ -58,11 +62,16 @@ namespace Atores
             return grupoDispositivo.RegistrarDispositivo(Estado._infoDispositivo);
         }
 
-        public Task Equipamento(string Equipamento, int Numero, bool Valor)
+        public Task Equipamento(PostEquipamento post)
         {
-            EquipEstado.Numero.Add(Numero, Valor);
-            EquipEstado.Equipamento.Add(Equipamento, EquipEstado.Numero);
+            EquipEstado.Numero.Add(post.Numero, post.Valor);
+            EquipEstado.Equipamento.Add(post.Equipamento, EquipEstado.Numero);
 
+            string JsonEnvio = JsonConvert.SerializeObject(post);
+            string uri = "http://" + Estado._infoDispositivo.Dispositivo + "/api/Equipamento";
+            HttpClient client = new HttpClient();
+            var content = new StringContent(JsonEnvio, Encoding.UTF8, "application/json");
+            var result =  client.PostAsync(uri, content);
             return null;
         }
     }
