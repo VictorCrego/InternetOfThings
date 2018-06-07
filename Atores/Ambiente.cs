@@ -68,7 +68,7 @@ namespace Atores
         public Task Equipamento(string dispositivo, PostEquipamento post)
         {
             var grupoDispositivo = ActorProxy.Create<IResidencia>(new ActorId(Estado._grupoId));
-            if (post.Equipamento == "Ventilador")
+            if (post.Equipamento == "V")
             {
                 if (!EquipEstado.DicVentilador.ContainsKey(post.Numero))
                     EquipEstado.DicVentilador.Add(post.Numero, post.Valor);
@@ -77,7 +77,7 @@ namespace Atores
 
                 grupoDispositivo.EstadoDispositivosGrupo(dispositivo + "Vent", EquipEstado.DicVentilador);
             }
-            if (post.Equipamento == "Lampada")
+            if (post.Equipamento == "L")
             {
                 if (!EquipEstado.DicLampada.ContainsKey(post.Numero))
                     EquipEstado.DicLampada.Add(post.Numero, post.Valor);
@@ -86,7 +86,7 @@ namespace Atores
 
                 grupoDispositivo.EstadoDispositivosGrupo(dispositivo + "Lamp", EquipEstado.DicLampada);
             }
-            if (post.Equipamento == "Umidificador")
+            if (post.Equipamento == "U")
             {
                 if (!EquipEstado.DicUmidificador.ContainsKey(post.Numero))
                     EquipEstado.DicUmidificador.Add(post.Numero, post.Valor);
