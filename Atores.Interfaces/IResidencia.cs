@@ -14,5 +14,6 @@ namespace Atores.Interfaces
     {
         Task RegistrarDispositivo(InfoDispositivo infoDispositivo);
         Task ApagarRegistroDispositivo(InfoDispositivo infoDispositivo);
+        Task EstadoDispositivosGrupo(string Dispositivo, Dictionary<int, bool> DicEstados);
     }
 }

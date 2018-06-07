@@ -8,7 +8,6 @@ namespace Dominio
     [Serializable]
     public class EstadoDispositivoGrupo
     {
-        //public ArrayList _listaDispositivos = new ArrayList();
         public Dictionary<string, InfoDispositivo> _Dispositivos = new Dictionary<string, InfoDispositivo>();
     }
 }

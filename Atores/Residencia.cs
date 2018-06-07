@@ -2,6 +2,8 @@
 using Dominio;
 using Microsoft.ServiceFabric.Actors;
 using Microsoft.ServiceFabric.Actors.Runtime;
+using System.Collections;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Atores
@@ -10,10 +12,20 @@ namespace Atores
     internal class Residencia : Actor, IResidencia
     {
         EstadoDispositivoGrupo Estado = new EstadoDispositivoGrupo();
+        EstadoEquipamento EquipEstado = new EstadoEquipamento();
 
         public Residencia(ActorService actorService, ActorId actorId) : base(actorService, actorId)
         {
 
+        }
+
+        public Task EstadoDispositivosGrupo(string Dispositivo, Dictionary<int, bool> DicEstados)
+        {
+            if (!EquipEstado.DicEstados.ContainsKey(Dispositivo))
+                EquipEstado.DicEstados.Add(Dispositivo, DicEstados);
+            else
+                EquipEstado.DicEstados[Dispositivo] = DicEstados;
+            return null;
         }
 
         public Task RegistrarDispositivo(InfoDispositivo infoDispositivo)

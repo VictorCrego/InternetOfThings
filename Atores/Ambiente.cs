@@ -64,8 +64,35 @@ namespace Atores
 
         public Task Equipamento(string dispositivo, PostEquipamento post)
         {
-            EquipEstado.Numero.Add(post.Numero, post.Valor);
-            EquipEstado.Equipamento.Add(post.Equipamento, EquipEstado.Numero);
+            var grupoDispositivo = ActorProxy.Create<IResidencia>(new ActorId(Estado._grupoId));
+            string Chave = "";
+            if (post.Equipamento == "Ventilador")
+            {
+                if (!EquipEstado.DicVentilador.ContainsKey(post.Numero))
+                    EquipEstado.DicVentilador.Add(post.Numero, post.Valor);
+                else
+                    EquipEstado.DicVentilador[post.Numero] = post.Valor;
+
+                grupoDispositivo.EstadoDispositivosGrupo(dispositivo + "Vent", EquipEstado.DicVentilador);
+            }
+            if (post.Equipamento == "Lampada")
+            {
+                if (!EquipEstado.DicLampada.ContainsKey(post.Numero))
+                    EquipEstado.DicLampada.Add(post.Numero, post.Valor);
+                else
+                    EquipEstado.DicLampada[post.Numero] = post.Valor;
+
+                grupoDispositivo.EstadoDispositivosGrupo(dispositivo + "Lamp", EquipEstado.DicLampada);
+            }
+            if (post.Equipamento == "Umidificador")
+            {
+                if (!EquipEstado.DicUmidificador.ContainsKey(post.Numero))
+                    EquipEstado.DicUmidificador.Add(post.Numero, post.Valor);
+                else
+                    EquipEstado.DicUmidificador[post.Numero] = post.Valor;
+
+                grupoDispositivo.EstadoDispositivosGrupo(dispositivo + "Umid", EquipEstado.DicUmidificador);
+            }
 
             string JsonEnvio = JsonConvert.SerializeObject(post);
             string endpoint = "http://" + dispositivo + ".ngrok.io/api/Equipamento";
