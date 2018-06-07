@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
 using Atores.Interfaces;
 using Metodos;
@@ -23,10 +24,14 @@ namespace API.Controllers
         }
 
         // GET: api/Equipamento/5
-        [HttpGet("{id}", Name = "Get")]
-        public string Get(int id)
+        [HttpGet("{dispositivo}")]
+        public string Get(string dispositivo)
         {
-            return "value";
+            var actor = ActorProxy.Create<IAmbiente>(new ActorId(dispositivo), new Uri("fabric:/InternetOfThings/AmbienteActorService"));
+            var resultado = actor.StatusSensores(dispositivo);
+            string Resposta = resultado.Result.ToString();
+            Resposta.Replace("\\\"", "");
+            return Resposta;
         }
         
         // POST: api/Equipamento

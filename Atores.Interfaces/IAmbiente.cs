@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Net.Http;
+using System.Threading.Tasks;
 using Metodos;
 using Microsoft.ServiceFabric.Actors;
 
@@ -8,5 +9,6 @@ namespace Atores.Interfaces
     {
         Task MeAtivarAsync(string cliente, string ambiente, string dispositivo, int versao);
         Task Equipamento(string dispositivo, PostEquipamento post);
+        Task<string> StatusSensores(string dispositivo);
     }
 }

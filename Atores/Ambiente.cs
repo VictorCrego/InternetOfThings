@@ -11,6 +11,8 @@ using System.Net.Http;
 using System.Text;
 using Newtonsoft.Json;
 using Metodos;
+using System.Net.Http.Headers;
+using System.Dynamic;
 
 namespace Atores
 {
@@ -65,7 +67,6 @@ namespace Atores
         public Task Equipamento(string dispositivo, PostEquipamento post)
         {
             var grupoDispositivo = ActorProxy.Create<IResidencia>(new ActorId(Estado._grupoId));
-            string Chave = "";
             if (post.Equipamento == "Ventilador")
             {
                 if (!EquipEstado.DicVentilador.ContainsKey(post.Numero))
@@ -100,6 +101,16 @@ namespace Atores
             var content = new StringContent(JsonEnvio, Encoding.UTF8, "application/json");
             var result =  client.PostAsync(endpoint, content);
             return null;
+        }
+
+        public Task<string> StatusSensores(string dispositivo)
+        {
+            string endpoint = "http://" + dispositivo + ".ngrok.io/api/Status";
+            HttpClient client = new HttpClient();
+            client.DefaultRequestHeaders.Accept.Clear();
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            var result = client.GetStringAsync(endpoint);
+            return result;
         }
     }
 }

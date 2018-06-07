@@ -41,11 +41,5 @@ namespace Atores
                 Estado._Dispositivos.Remove(infoDispositivo.Dispositivo);
             return Task.FromResult(true);
         }
-
-        /*protected override Task OnActivateAsync()
-        {
-            ActorEventSource.Current.ActorMessage(this, "Actor activated.");
-            return this.StateManager.TryAddStateAsync("count", 0);
-        }*/
     }
 }
