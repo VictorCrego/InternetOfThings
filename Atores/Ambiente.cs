@@ -13,6 +13,7 @@ using Newtonsoft.Json;
 using Metodos;
 using System.Net.Http.Headers;
 using System.Dynamic;
+using System.Collections.Generic;
 
 namespace Atores
 {
@@ -107,8 +108,6 @@ namespace Atores
         {
             string endpoint = "http://" + dispositivo + ".ngrok.io/api/Status";
             HttpClient client = new HttpClient();
-            client.DefaultRequestHeaders.Accept.Clear();
-            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             var result = client.GetStringAsync(endpoint);
             return result;
         }

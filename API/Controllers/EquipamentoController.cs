@@ -5,10 +5,16 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using Atores.Interfaces;
 using Metodos;
+using Dominio;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.ServiceFabric.Actors;
 using Microsoft.ServiceFabric.Actors.Client;
+using Newtonsoft.Json;
+using System.Text;
+using System.Text.RegularExpressions;
+using System.Runtime.Serialization.Json;
+using System.IO;
 
 namespace API.Controllers
 {
@@ -30,7 +36,7 @@ namespace API.Controllers
             var actor = ActorProxy.Create<IAmbiente>(new ActorId(dispositivo), new Uri("fabric:/InternetOfThings/AmbienteActorService"));
             var resultado = actor.StatusSensores(dispositivo);
             string Resposta = resultado.Result.ToString();
-            Resposta.Replace("\\\"", "");
+            Sensores sensores = JsonConvert.DeserializeObject<Sensores>(Resposta);
             return Resposta;
         }
         
