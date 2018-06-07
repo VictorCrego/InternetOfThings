@@ -20,7 +20,7 @@ namespace Atores
         EstadoDispositivo Estado = new EstadoDispositivo();
         EstadoEquipamento EquipEstado = new EstadoEquipamento();
 
-        private readonly string storageConnectionString = "";
+        private readonly string storageConnectionString = "DefaultEndpointsProtocol=https;AccountName=victorpuc;AccountKey=D9cN80DLeOGyENshbh/PyocYoR9r0y8JRFi+VkqjzXMwXvYyVNB6HD01waENi4kxf4wkRqwkzHUvR5LkOljGpQ==;EndpointSuffix=core.windows.net";
 
         public Ambiente(ActorService actorService, ActorId actorId)
             : base(actorService, actorId)
@@ -36,16 +36,16 @@ namespace Atores
         public Task MeAtivarAsync(string cliente, string ambiente, string dispositivo, int versao)
         {
             //Cria Tabela em Microsoft Azure através de uma ConnectionString
-            /*CloudTable cloudTable;
+            CloudTable cloudTable;
             CloudStorageAccount cloudStorageAccount = CloudStorageAccount.Parse(storageConnectionString);
             var cloudTableClient = cloudStorageAccount.CreateCloudTableClient();
-            cloudTable = cloudTableClient.GetTableReference("Equipamentos");
+            cloudTable = cloudTableClient.GetTableReference("EquipamentosIoT");
             cloudTable.CreateIfNotExistsAsync();
             //Modelo de dados a adicionar na tabela Equipamentos onde 'dispositivo' é a partitionKey, 'cliente' é a rowKey
             var Dispositivo = new EntidadeDispositivo(dispositivo, cliente) { Ambiente = ambiente, Versao = versao.ToString() };
             //Realiza a Inserção da Tabela
             TableOperation insertOperation = TableOperation.InsertOrReplace(Dispositivo);
-            cloudTable.ExecuteAsync(insertOperation);*/
+            cloudTable.ExecuteAsync(insertOperation);
 
             //Salva as Informações do Dispositivo
             Estado._infoDispositivo = new InfoDispositivo()
